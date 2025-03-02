@@ -3,7 +3,7 @@ import React from 'react';
 
 const FooterPage = () => {
     return (
-        <Grid size={12} sx={{ backgroundColor: "black", padding: "30px 20px" }}>
+        <Grid size={12} sx={{ backgroundColor: "black", padding: "30px 30px", margin: "auto" }}>
             <Grid size={12}>
                 <Grid size={{ xs: 11, md: 6 }} sx={{ margin: "auto" }}>
                     <p style={{ fontSize: "18px", fontWeight: "600", letterSpacing: "0px", textAlign: "center", marginBottom: "10px", color: "#fe4240" }}>SOUSCRIBE TO US</p>
