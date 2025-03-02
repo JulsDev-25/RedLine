@@ -23,7 +23,7 @@ const Carousel = () => {
       style={{ width: "100vw", height: "70vh", backgroundColor: "black" }}
     >
       <SwiperSlide><img src={image} alt="1" className="slide-image" style={{width: "100%", height: "100%", objectFit:"cover"}}/></SwiperSlide>
-      <SwiperSlide><img src={image1} alt="2" className="slide-image" style={{width: "100%", height: "100%", objectFit:"cover"}}/></SwiperSlide>
+      <SwiperSlide><img src={image2} alt="2" className="slide-image" style={{width: "100%", height: "100%", objectFit:"cover"}}/></SwiperSlide>
       <SwiperSlide><img src={image2} alt="3" className="slide-image" style={{width: "100%", height: "100%", objectFit:"cover"}}/></SwiperSlide>
       <SwiperSlide><img src={image} alt="3" className="slide-image" style={{width: "100%", height: "100%", objectFit:"cover"}}/></SwiperSlide>
     </Swiper>
