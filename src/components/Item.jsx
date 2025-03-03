@@ -1,22 +1,23 @@
 import React from 'react';
 import { Box } from '@mui/material';
 
-const Item = () => {
+const Item = ({name, date, category, imageUrl}) => {
     return (
         <>
             <Box>
                 <Box
-                    sx={{ backgroundColor: "gray", height: "200px", width: "150px" }}
+                    sx={{ height: "200px", width: "150px" }}
                 >
+                    <img src={imageUrl} alt={name} style={{height: "100%", width: "100%", objectFit: "conver"}} />
                 </Box>
                 <Box>
-                    <p style={{ textAlign: "center", margin: "5px " }}>Citizen Sildier</p>
+                    <p style={{ textAlign: "center", margin: "5px " }}>{name ? name :"n/a"}</p>
                 </Box>
                 <Box
                     sx={{ display: "flex", justifyContent: "space-between" }}
                 >
-                    <p>2016</p>
-                    <h4>Genre</h4>
+                    <p>{date ? date : "n/a"}</p>
+                    <h4>{category ? category : "n/a"}</h4>
                 </Box>
             </Box>
         </>

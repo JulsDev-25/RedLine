@@ -1,5 +1,5 @@
 import { AppBar, Box, Grid2 as Grid, TextField } from '@mui/material';
-import React from 'react';
+import React, { useState } from 'react';
 import Carousel from './Carousel';
 import ResponsiveAppBar from './AppBar';
 import ContactBar from './ContactBar';
@@ -10,13 +10,106 @@ import Button from '@mui/material/Button';
 import ReseaxSociaux from './ReseaxSociaux';
 import ContactUs from './ContactUs';
 import FooterPage from './Footer';
+import Formulaire from './formulaire';
+
+const Movies = [
+    {
+        name: "batmanmovie",
+        date: "2017",
+        category: "comedie",
+        imageUrl: "/src/assets/img/img/batmanmovie-2017-comedie.jpg"
+    },
+    {
+        name: "hostel",
+        date: "2005",
+        category: "thriller",
+        imageUrl: "/src/assets/img/img/hostel-2005-thriller.jpg"
+    },
+    {
+        name: "inception",
+        date: "2010",
+        category: "scifi",
+        imageUrl: "/src/assets/img/img/inception-2010-scifi.jpg"
+    },
+    {
+        name: "intouchables",
+        date: "2011",
+        category: "comedie",
+        imageUrl: "/src/assets/img/img/intouchables-2011-comedie.jpg"
+    },
+    {
+        name: "lepatientanglais",
+        date: "1996",
+        category: "dramatique",
+        imageUrl: "/src/assets/img/img/lepatientanglais-1996-dramatique.jpg"
+    },
+    {
+        name: "lesdeuxtours",
+        date: "2002",
+        category: "aventure",
+        imageUrl: "/src/assets/img/img/lesdeuxtours-2002-aventure.jpg"
+    },
+    {
+        name: "seven",
+        date: "1995",
+        category: "thriller",
+        imageUrl: "/src/assets/img/img/seven-1995-thriller.jpg"
+    },
+    {
+        name: "shutterisland",
+        date: "2010",
+        category: "thriller",
+        imageUrl: "/src/assets/img/img/shutterisland-2010-thriller.jpg"
+    },
+    {
+        name: "starwarsempire",
+        date: "1980",
+        category: "scifi",
+        imageUrl: "/src/assets/img/img/starwarsempire-1980-scifi.jpg"
+    },
+    {
+        name: "Survivestyle5",
+        date: "2004",
+        category: "comedie",
+        imageUrl: "/src/assets/img/img/Survivestyle5-2004-comedie.jpg"
+    },
+    {
+        name: "swissarmyman",
+        date: "2016",
+        category: "comedie",
+        imageUrl: "/src/assets/img/img/swissarmyman-2016-comedie.jpg"
+    },
+    {
+        name: "thefall",
+        date: "2006",
+        category: "dramatique",
+        imageUrl: "/src/assets/img/img/thefall-2006-dramatique.jpg"
+    },
+    {
+        name: "WhatWeDoInTheShadows",
+        date: "2014",
+        category: "comedie",
+        imageUrl: "/src/assets/img/img/WhatWeDoInTheShadows-2014-comedie.jpg"
+    },
+    {
+        name: "zoolander",
+        date: "2001",
+        category: "comedie",
+        imageUrl: "/src/assets/img/img/zoolander-2001-comedie.jpg"
+    }
+]
 
 const Layout = () => {
+    const [modalForm, setModalForm] = useState(false);
+
+    const handleShowModalForm = () => setModalForm(true)
+    const handleCloseModalForm = () => setModalForm(false)
+
     return (
         <Grid container>
             <ResponsiveAppBar />
             <Carousel />
-            <Grid size={12}><ContactBar /></Grid>
+            <Grid size={12}><ContactBar handleShowModalForm={handleShowModalForm} /></Grid>
             <ReseaxSociaux />
             <Grid size={12}>
                 <ItemsContainer borderc={true}>
@@ -54,18 +147,11 @@ const Layout = () => {
                     </Button>
                 </Box>
                 <ItemsContainer mb='0px'>
-                    <Item />
-                    <Item />
-                    <Item />
-                    <Item />
-                    <Item />
-                    <Item />
-                    <Item />
-                    <Item />
-                    <Item />
-                    <Item />
-                    <Item />
-                    <Item />
+                    {
+                        Movies.map((item) => (
+                            <Item name={item.name} date={item.date} category={item.category} imageUrl={item.imageUrl} />
+                        ))
+                    }
                 </ItemsContainer>
                 <VoirPlusBtn />
             </Grid>
@@ -96,18 +182,11 @@ const Layout = () => {
                     </Button>
                 </Box>
                 <ItemsContainer mb='0px'>
-                    <Item />
-                    <Item />
-                    <Item />
-                    <Item />
-                    <Item />
-                    <Item />
-                    <Item />
-                    <Item />
-                    <Item />
-                    <Item />
-                    <Item />
-                    <Item />
+                    {
+                        Movies.map((item) => (
+                            <Item name={item.name} date={item.date} category={item.category} imageUrl={item.imageUrl} />
+                        ))
+                    }
                 </ItemsContainer>
                 <Grid size={12}>
                     <VoirPlusBtn />
@@ -156,6 +235,8 @@ const Layout = () => {
             <Box>
                 <ContactUs />
             </Box>
+
+            <Formulaire openModalForm={modalForm} handleModalForm={handleCloseModalForm} />
 
             <FooterPage />
         </Grid>
