@@ -150,10 +150,10 @@ function ResponsiveAppBar() {
           </Box>
           <Paper
             component="form"
-            sx={{ p: '0px 4px', display: { xs: "none", md: "flex" }, alignItems: 'center', width: "25%", borderRadius: "20px", backgroundColor: "rgba(0,0,0, 0.5)" }}
+            sx={{ p: '0px 4px', display: { xs: "none", md: "flex" }, alignItems: 'center', width: "25%", height: "35px", borderRadius: "20px", backgroundColor: "rgba(0,0,0, 0.5)" }}
           >
             <InputBase
-              sx={{ ml: 1, flex: 1, color: "white" }}
+              sx={{ ml: 1, flex: 1, color: "white", fontSize: "13px" }}
               placeholder="Search Google Maps"
               inputProps={{ 'aria-label': 'search google maps' }}
             />

@@ -6,9 +6,9 @@ const Item = ({name, date, category, imageUrl}) => {
         <>
             <Box>
                 <Box
-                    sx={{ height: "200px", width: "150px" }}
+                    sx={{ height: "200px", width: "140px", backgroundColor: "gray" }}
                 >
-                    <img src={imageUrl} alt={name} style={{height: "100%", width: "100%", objectFit: "conver"}} />
+                    {imageUrl && <img src={imageUrl} alt={name} style={{height: "100%", width: "100%", objectFit: "conver"}} />}
                 </Box>
                 <Box>
                     <p style={{ textAlign: "center", margin: "5px " }}>{name ? name :"n/a"}</p>

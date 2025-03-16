@@ -11,6 +11,7 @@ import ReseaxSociaux from './ReseaxSociaux';
 import ContactUs from './ContactUs';
 import FooterPage from './Footer';
 import Formulaire from './formulaire';
+import ItemsGrid from './ItemsGrid';
 
 const Movies = [
     {
@@ -107,22 +108,31 @@ const Layout = () => {
 
     return (
         <Grid container>
+            {/* NavBar */}
             <ResponsiveAppBar />
+
+            {/* Banière de présentation sous forme de carousel */}
             <Carousel />
             <Grid size={12}><ContactBar handleShowModalForm={handleShowModalForm} /></Grid>
+            
+            {/* Réseaux sociaux en position absolut sur la gauche  */}
             <ReseaxSociaux />
+
+            {/* ********* Première catégorie de films ********** */}
             <Grid size={12}>
-                <ItemsContainer borderc={true}>
+                <ItemsGrid borderc="true" jc="space-around">
                     <Item />
                     <Item />
                     <Item />
                     <Item />
                     <Item />
-                </ItemsContainer>
+                </ItemsGrid>
             </Grid>
 
+            {/* ********* Deuxième catégorie de films ********** */}
             <h2 style={{ marginTop: "65px" }}>FEATURED MOVIES</h2>
-            <Grid>
+            <Grid sx={{width: "100%"}}>
+                {/* Bouttons de filtres des films */}
                 <Box sx={{ display: "flex", gap: "2px", width: { xs: "100%", md: "77%" }, marginLeft: { xs: "60px", md: "auto" }, margin: "15px auto 0px auto", }}>
                     <Button
                         sx={{ my: 2, marginLeft: "10px", margin: "0px", color: 'white', display: 'block', backgroundColor: "#fe4240", marginRight: "5px" }}
@@ -146,19 +156,24 @@ const Layout = () => {
                         Tendances
                     </Button>
                 </Box>
-                <ItemsContainer mb='0px'>
+                {/* Items */}
+                <ItemsGrid borderc="true" mb='0px'>
                     {
                         Movies.map((item) => (
                             <Item name={item.name} date={item.date} category={item.category} imageUrl={item.imageUrl} />
                         ))
                     }
-                </ItemsContainer>
+                </ItemsGrid>
+
+                {/* Bouton voir plus */}
                 <VoirPlusBtn />
             </Grid>
 
+            {/* ********* Troisième Catégories de films ********** */}
             <h2 style={{ marginTop: "65px" }}>FEATURES SERIE TV</h2>
             <Grid size={12}>
-                <Box sx={{ display: "flex", gap: "2px", width: { xs: "100%", md: "77%" }, marginLeft: { xs: "60px", md: "auto" }, margin: "15px auto 0px auto", }}>
+                {/* Boutons de filtre */}
+                <Box sx={{ display: "flex", gap: "2px", margin: "15px auto 10px 75px", }}>
                     <Button
                         sx={{ my: 2, marginLeft: "10px", margin: "0px", color: 'white', display: 'block', backgroundColor: "#fe4240", marginRight: "5px" }}
                     >
@@ -181,20 +196,23 @@ const Layout = () => {
                         Tendances
                     </Button>
                 </Box>
-                <ItemsContainer mb='0px'>
+                {/* Items */}
+                <ItemsGrid mb='0px'>
                     {
                         Movies.map((item) => (
                             <Item name={item.name} date={item.date} category={item.category} imageUrl={item.imageUrl} />
                         ))
                     }
-                </ItemsContainer>
+                </ItemsGrid>
                 <Grid size={12}>
                     <VoirPlusBtn />
                 </Grid>
             </Grid>
 
+            {/* ********* Shop movies ********** */}
             <h2 style={{ marginTop: "65px" }}>SHOP MOVIES</h2>
             <Grid size={12}>
+                {/* Boutons de filtres de films */}
                 <Box sx={{ display: "flex", gap: "2px", width: { xs: "100%", md: "77%" }, marginLeft: { xs: "60px", md: "auto" }, margin: "15px auto 0px auto", }}>
                     <Button
                         sx={{ my: 2, marginLeft: "10px", margin: "0px", color: 'white', display: 'block', backgroundColor: "#fe4240", marginRight: "5px" }}
@@ -218,6 +236,7 @@ const Layout = () => {
                         Tendances
                     </Button>
                 </Box>
+                {/* Items */}
                 <ItemsContainer mb='0px'>
                     <Item />
                     <Item />
@@ -226,18 +245,22 @@ const Layout = () => {
                     <Item />
                     <Item />
                 </ItemsContainer>
+                {/* Bouton voir plus */}
                 <Grid size={12}>
                     <VoirPlusBtn />
                 </Grid>
             </Grid>
 
+            {/* ********* Formulaire de contact ********** */}
             <h2 style={{ marginTop: "65px" }}>CONTACT US</h2>
             <Box>
                 <ContactUs />
             </Box>
-
+            
+            {/* ********* Formulaire de connexion ********** */}
             <Formulaire openModalForm={modalForm} handleModalForm={handleCloseModalForm} />
 
+            {/* ********* Footerpage ********** */}
             <FooterPage />
         </Grid>
     );
