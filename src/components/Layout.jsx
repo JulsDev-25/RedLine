@@ -1,4 +1,4 @@
-import { AppBar, Box, Grid2 as Grid, TextField } from '@mui/material';
+import { AppBar, Box, Grid2 as Grid, IconButton, TextField } from '@mui/material';
 import React, { useState } from 'react';
 import Carousel from './Carousel';
 import ResponsiveAppBar from './AppBar';
@@ -12,6 +12,8 @@ import ContactUs from './ContactUs';
 import FooterPage from './Footer';
 import Formulaire from './formulaire';
 import ItemsGrid from './ItemsGrid';
+import PlayCircleIcon from '@mui/icons-material/PlayCircle';
+import BtnFilter from './BtnFilter';
 
 const Movies = [
     {
@@ -102,153 +104,119 @@ const Movies = [
 
 const Layout = () => {
     const [modalForm, setModalForm] = useState(false);
+    const [showMore, setShowMore] = useState(false)
+    const lfilm = 12 // Nombre de filme à afficher
+    const [className, setClassName] = useState("")
+    const [nameBtnFilter, setNameBtnFilter] = useState("")
+    const [filterMovies, setFilterMovies] = useState("all")
+    const [catName, setCatName] = useState("");  //  Catégorie de films à filtrer
+
+    
+    let Moviesf = filterMovies === "all" ? Movies : Movies.filter((item) => item.category === filterMovies)
 
     const handleShowModalForm = () => setModalForm(true)
     const handleCloseModalForm = () => setModalForm(false)
 
+    const moviesSlice = (MoviesTab, taille) => {
+        const movies = taille ? MoviesTab.slice(0, taille) : Movies
+        return movies
+    }
+
+    let gender = Movies.map(el => el.category)
+    gender = gender.filter((el, index) => index == gender.indexOf(el))
+
     return (
         <Grid container>
             {/* NavBar */}
-            <ResponsiveAppBar />
+            <ResponsiveAppBar gender={gender} />
 
             {/* Banière de présentation sous forme de carousel */}
             <Carousel />
             <Grid size={12}><ContactBar handleShowModalForm={handleShowModalForm} /></Grid>
-            
+
             {/* Réseaux sociaux en position absolut sur la gauche  */}
             <ReseaxSociaux />
 
             {/* ********* Première catégorie de films ********** */}
             <Grid size={12}>
                 <ItemsGrid borderc="true" jc="space-around">
-                    <Item />
-                    <Item />
-                    <Item />
-                    <Item />
-                    <Item />
+                    {
+                        moviesSlice(Movies, 5).map((item) => (
+                            <Item name={item.name} date={item.date} category={item.category} imageUrl={item.imageUrl} />
+                        ))
+                    }
                 </ItemsGrid>
             </Grid>
 
             {/* ********* Deuxième catégorie de films ********** */}
             <h2 style={{ marginTop: "65px" }}>FEATURED MOVIES</h2>
-            <Grid sx={{width: "100%"}}>
+            <Grid sx={{ width: "100%" }}>
                 {/* Bouttons de filtres des films */}
-                <Box sx={{ display: "flex", gap: "2px", width: { xs: "100%", md: "77%" }, marginLeft: { xs: "60px", md: "auto" }, margin: "15px auto 0px auto", }}>
-                    <Button
-                        sx={{ my: 2, marginLeft: "10px", margin: "0px", color: 'white', display: 'block', backgroundColor: "#fe4240", marginRight: "5px" }}
-                    >
-                        All
-                    </Button>
-
-                    <Button
-                        sx={{ my: 2, color: 'black', margin: "0px", display: 'block', backgroundColor: "rgba(0, 0, 0, 0.19)", marginRight: "5px" }}
-                    >
-                        Action
-                    </Button>
-                    <Button
-                        sx={{ my: 2, color: 'black', margin: "0px", display: 'block', backgroundColor: "rgba(0, 0, 0, 0.19)", marginRight: "5px" }}
-                    >
-                        Policiers
-                    </Button>
-                    <Button
-                        sx={{ my: 2, color: 'transparent', margin: "0px", display: 'block', backgroundColor: "rgba(0, 0, 0, 0.19)", marginRight: "70px" }}
-                    >
-                        Tendances
-                    </Button>
-                </Box>
+                <BtnFilter 
+                    name={nameBtnFilter} 
+                    setName={setNameBtnFilter} 
+                    filter={filterMovies} 
+                    setFilter={setFilterMovies} 
+                    catName="featuredMovies"
+                    setCatName={setCatName}
+                    focus={catName}
+                />
                 {/* Items */}
                 <ItemsGrid borderc="true" mb='0px'>
                     {
-                        Movies.map((item) => (
+                        moviesSlice(catName === "featuredMovies" ? Moviesf : Movies, showMore && className == "featuredMovies" ? null : lfilm).map((item) => (
                             <Item name={item.name} date={item.date} category={item.category} imageUrl={item.imageUrl} />
                         ))
                     }
                 </ItemsGrid>
 
                 {/* Bouton voir plus */}
-                <VoirPlusBtn />
+                <VoirPlusBtn className="featuredMovies" showMore={showMore} setClassName={setClassName} setShowMore={setShowMore} />
             </Grid>
 
             {/* ********* Troisième Catégories de films ********** */}
             <h2 style={{ marginTop: "65px" }}>FEATURES SERIE TV</h2>
             <Grid size={12}>
                 {/* Boutons de filtre */}
-                <Box sx={{ display: "flex", gap: "2px", margin: "15px auto 10px 75px", }}>
-                    <Button
-                        sx={{ my: 2, marginLeft: "10px", margin: "0px", color: 'white', display: 'block', backgroundColor: "#fe4240", marginRight: "5px" }}
-                    >
-                        All
-                    </Button>
-
-                    <Button
-                        sx={{ my: 2, color: 'black', margin: "0px", display: 'block', backgroundColor: "rgba(0, 0, 0, 0.19)", marginRight: "5px" }}
-                    >
-                        Action
-                    </Button>
-                    <Button
-                        sx={{ my: 2, color: 'black', margin: "0px", display: 'block', backgroundColor: "rgba(0, 0, 0, 0.19)", marginRight: "5px" }}
-                    >
-                        Policiers
-                    </Button>
-                    <Button
-                        sx={{ my: 2, color: 'transparent', margin: "0px", display: 'block', backgroundColor: "rgba(0, 0, 0, 0.19)", marginRight: "70px" }}
-                    >
-                        Tendances
-                    </Button>
-                </Box>
+                <BtnFilter 
+                    name={nameBtnFilter} 
+                    setName={setNameBtnFilter} 
+                    filter={filterMovies} 
+                    setFilter={setFilterMovies} 
+                    catName="featuredSeries"
+                    setCatName={setCatName}
+                    focus={catName}
+                />
                 {/* Items */}
                 <ItemsGrid mb='0px'>
                     {
-                        Movies.map((item) => (
+                        moviesSlice(catName === "featuredSeries" ? Moviesf : Movies, showMore && className == "featuredSeries" ? null : lfilm).map((item) => (
                             <Item name={item.name} date={item.date} category={item.category} imageUrl={item.imageUrl} />
                         ))
                     }
                 </ItemsGrid>
                 <Grid size={12}>
-                    <VoirPlusBtn />
+                    <VoirPlusBtn className="featuredSeries" showMore={showMore} setClassName={setClassName} setShowMore={setShowMore} />
                 </Grid>
             </Grid>
 
             {/* ********* Shop movies ********** */}
             <h2 style={{ marginTop: "65px" }}>SHOP MOVIES</h2>
-            <Grid size={12}>
-                {/* Boutons de filtres de films */}
-                <Box sx={{ display: "flex", gap: "2px", width: { xs: "100%", md: "77%" }, marginLeft: { xs: "60px", md: "auto" }, margin: "15px auto 0px auto", }}>
-                    <Button
-                        sx={{ my: 2, marginLeft: "10px", margin: "0px", color: 'white', display: 'block', backgroundColor: "#fe4240", marginRight: "5px" }}
-                    >
-                        All
-                    </Button>
-
-                    <Button
-                        sx={{ my: 2, color: 'black', margin: "0px", display: 'block', backgroundColor: "rgba(0, 0, 0, 0.19)", marginRight: "5px" }}
-                    >
-                        Action
-                    </Button>
-                    <Button
-                        sx={{ my: 2, color: 'black', margin: "0px", display: 'block', backgroundColor: "rgba(0, 0, 0, 0.19)", marginRight: "5px" }}
-                    >
-                        Policiers
-                    </Button>
-                    <Button
-                        sx={{ my: 2, color: 'transparent', margin: "0px", display: 'block', backgroundColor: "rgba(0, 0, 0, 0.19)", marginRight: "70px" }}
-                    >
-                        Tendances
-                    </Button>
+            <Grid size={12} sx={{ display: "flex", justifyContent: "center" }}>
+                <Box sx={{ padding: "20px", display: "grid", gridTemplateColumns: "repeat(max(3), 140px)", gap: "10px" }} mb='0px'>
+                    {
+                        moviesSlice(Movies, 6).map((item) => (
+                            <Item imageUrl={item.imageUrl} />
+                        ))
+                    }
                 </Box>
-                {/* Items */}
-                <ItemsContainer mb='0px'>
-                    <Item />
-                    <Item />
-                    <Item />
-                    <Item />
-                    <Item />
-                    <Item />
-                </ItemsContainer>
-                {/* Bouton voir plus */}
-                <Grid size={12}>
-                    <VoirPlusBtn />
-                </Grid>
+                <Box
+                    sx={{ width: "400px", margin: "20px", backgroundColor: "lightgrey", display: "flex", alignItems: "center", justifyContent: "center" }}
+                >
+                    <IconButton>
+                        <PlayCircleIcon fontSize="large" />
+                    </IconButton>
+                </Box>
             </Grid>
 
             {/* ********* Formulaire de contact ********** */}
@@ -256,7 +224,7 @@ const Layout = () => {
             <Box>
                 <ContactUs />
             </Box>
-            
+
             {/* ********* Formulaire de connexion ********** */}
             <Formulaire openModalForm={modalForm} handleModalForm={handleCloseModalForm} />
 

@@ -14,14 +14,21 @@ import { Input } from '@mui/material';
 import InputBase from '@mui/material/InputBase';
 import Paper from '@mui/material/Paper';
 import SearchIcon from '@mui/icons-material/Search';
+import { ExpandLess, ExpandMore } from '@mui/icons-material';
 
 
 const pages = ['home', 'gender', 'contact'];
 
-function ResponsiveAppBar() {
+function ResponsiveAppBar({ gender }) {
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
+  const [anchorGender, setAnchorGender] = React.useState(null)
+  const [openGender, setOpenGender] = React.useState(false)
 
+  const handleOpenGender = (e) => {
+    setAnchorGender(e.currentTarget)
+    setOpenGender(!openGender)
+  };
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);
   };
@@ -29,6 +36,10 @@ function ResponsiveAppBar() {
     setAnchorElUser(event.currentTarget);
   };
 
+  const closeGender = () => {
+    setAnchorGender(null)
+    setOpenGender(false)
+  };
   const handleCloseNavMenu = () => {
     setAnchorElNav(null);
     setColorMenu("#fe4240")
@@ -39,7 +50,7 @@ function ResponsiveAppBar() {
   };
 
   return (
-    <AppBar position="fixed" sx={{ backgroundColor: "rgba(0,0,0, 0.2)", padding: "10px"}}>
+    <AppBar position="fixed" sx={{ backgroundColor: "rgba(0,0,0, 0.2)", padding: "10px" }}>
       <Container maxWidth="xl">
         <Toolbar disableGutters>
           <Typography
@@ -118,11 +129,26 @@ function ResponsiveAppBar() {
                 <>
                   <Button
                     key={page}
-                    onClick={(e) => handleCloseNavMenu(e)}
-                    sx={{ my: 2, marginLeft: "10px", color: 'white', display: 'block', backgroundColor: "#fe4240", marginRight: "5px" }}
+                    onClick={handleOpenGender}
+                    sx={{ my: 2, marginLeft: "10px", color: 'white', display: 'flex', backgroundColor: "#fe4240", marginRight: "5px", gap: "5px", alignItems: "flex-start"}}
                   >
-                    {page}
+                    {page} { openGender ? <ExpandLess /> : <ExpandMore /> }
                   </Button>
+                  <Menu anchorEl={anchorGender} open={openGender} onClose={closeGender} sx={{width: "200px", mt: 1}}>
+                    {
+                      gender.map((gender) => (
+                        <MenuItem 
+                          onClick={closeGender}
+                          sx={{
+                            textTransform: "capitalize",
+                            padding: "10px",                       
+                          }}
+                        >
+                          {gender}
+                        </MenuItem>
+                      ))
+                    }
+                  </Menu>
 
                   <Button
                     sx={{ my: 2, display: 'block', backgroundColor: "rgba(255, 255, 255, 0.2)", marginRight: "5px" }}
